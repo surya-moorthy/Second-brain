@@ -17,12 +17,7 @@ authRouter.post("/signup",async (req : Request,res : Response)=> {
             message : "Error in Inputs" 
         })
     }
-    const passwordHash = bcrypt.hash(user.password,10,function(err, hash){
-        if(err) {
-            console.log(err)
-        }
-        return hash
-    });
+    const passwordHash = await bcrypt.hash(user.password,10);
 
     const verfiyUser = await UserModel.findOne({
         username : user.username
@@ -44,7 +39,8 @@ authRouter.post("/signup",async (req : Request,res : Response)=> {
         message : "User registered Successfully" 
     })}catch(err) {
        res.status(500).json({
-        message : "Internal Server Error"
+        message : "Internal Server Error",
+        error : err
        })
     }
 })
@@ -63,12 +59,12 @@ authRouter.post("/login",async (req : Request,res : Response)=> {
 
     //   const passwordHash = bcrypt.hash(user.password,10);
 
-    const verfiyUser = await UserModel.find({
+    const verfiyUser = await UserModel.findOne({
          username : user.username
         },
     ).select({
-        username : true,
-        password : false
+        username : 1,
+        password : 1
     })
 
     
@@ -76,9 +72,17 @@ authRouter.post("/login",async (req : Request,res : Response)=> {
         res.status(411).json({
             message : "User not found"
         })
+        return
     }
 
-    const verifyPassword = await bcrypt.compare()
+    const hashedPassword = verfiyUser.password as string
+
+    const verifyPassword = await bcrypt.compare(user.password,hashedPassword)
+    if(!verifyPassword) {
+        res.status(403).json({
+            message : "User unauthorized."
+        })
+    }
 
     const token = jwt.sign(verfiyUser,JWT_SECRET);
 
@@ -87,7 +91,8 @@ authRouter.post("/login",async (req : Request,res : Response)=> {
         message : "User registered Successfully" 
     })}catch(err) {
        res.status(500).json({
-        message : "Internal Server Error"
+        message : "Internal Server Error",
+        error : err
        })
     }
 })
