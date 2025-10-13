@@ -12,6 +12,7 @@ const ContentSchema : Schema = new Schema({
     link : {type : String,required : true},
     type : {type :String,required : true},
     title : {type : String,required : true},
+    userId : {type : String, required : true},
     tags : [{type : Types.ObjectId, ref : "Tag"}],
     user : {type : Types.ObjectId, ref : "User"}
 })
@@ -22,6 +23,8 @@ const TagSchema = new Schema({
 
 const LinkSchema = new Schema({
     hash :  {type : String,required : true},
+    share : {type : Boolean, default : false},
+    userId : {type : String, required : true},
     user : {type : Types.ObjectId, ref : "User"} // use ref to relate db to another.
 })
 

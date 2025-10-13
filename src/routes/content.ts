@@ -20,8 +20,11 @@ contentRouter.post("/content", async (req : Request,res : Response) => {
      const contentResponse = await ContentModel.create({
          title : content.title,
          type : content.type,
-         link : content.link
+         link : content.link,
+         userId : req.userId
      })
+
+     console.log(contentResponse);
 
      res.status(200).json({
         contentId : contentResponse._id, 
@@ -67,7 +70,7 @@ contentRouter.delete("/", async (req : Request,res : Response) => {
 
         const contentId = req.query.id;
 
-        const findcontent = await ContentModel.findById(contentId).where()
+        const findcontent = await ContentModel.findOne({id : contentId, userId : req.userId}).where()
 
        if(!findcontent) {
         res.status(403).json({
