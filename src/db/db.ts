@@ -22,11 +22,11 @@ const TagSchema = new Schema({
 })
 
 const LinkSchema = new Schema({
-    hash :  {type : String,required : true},
-    share : {type : Boolean, default : false},
-    userId : {type : String, required : true},
-    user : {type : Types.ObjectId, ref : "User"} // use ref to relate db to another.
-})
+  hash: { type: String, required: true },
+  share: { type: Boolean, default: false },
+  user: { type: Types.ObjectId, ref: "User", required: true }
+});
+
 
 export const UserModel =  model("User",UserSchema);
 export const TagModel = model("Tag",TagSchema);

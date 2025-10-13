@@ -19,7 +19,7 @@ brainRouter.post("/share", async (req : Request,res : Response) => {
         const createLinkResponse = await LinkModel.create({
             hash : randomString,
             share : share,
-            userId : userId
+            user : req.userId
         })
 
         res.status(200).json({
@@ -37,29 +37,32 @@ brainRouter.get("/", async (req : Request,res : Response) => {
        try{
         const link = req.query.shareLink;
 
-        const linkResponse = await LinkModel.findOne({
-            hash : link
-        })
-        
+     const linkResponse = await LinkModel
+        .findOne({ hash: link })
+        .populate<{user : { _id : string, username : string}}>({ path: "user", select: "username" });
+
         if(!linkResponse) {
             res.status(403).json({
                 message : "If the share link is invalid"
             })
             return
         }
-        console.log(linkResponse.get("share"));
+        console.log(linkResponse);
+
         if(!linkResponse.get("share")) {
             res.status(404).json({
                 message : "the link is not shareable"
             })
         }
         const userId = linkResponse.get("userId");
+
         const contents = await ContentModel.find({
             userId : userId
-        })
+        }).select("-userId");
 
         res.status(200).json({
-            contents
+            username : linkResponse.user.username,
+            contents : contents
         })
 
        }catch(err) {
