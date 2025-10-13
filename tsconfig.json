@@ -34,10 +34,14 @@
     // "noPropertyAccessFromIndexSignature": true,
 
     // Recommended Options
+    "typeRoots": [
+      "src/types/types.d.ts","node_modules/@types"
+    ],
     "strict": true,
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
-  }
+  },
+  "exclude": ["node_modules", "dist"],"include": ["src/**/*"]
 }

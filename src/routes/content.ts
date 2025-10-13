@@ -1,10 +1,13 @@
 import { Request, Response, Router } from "express";
 import { ContentModel } from "../db/db";
+import mongoose from "mongoose";
 
 
 export const contentRouter : Router = Router();
 
-contentRouter.post("/", async (req : Request,res : Response) => {
+// create a new content
+
+contentRouter.post("/content", async (req : Request,res : Response) => {
     try 
     { const content = req.body;
 
@@ -31,4 +34,77 @@ contentRouter.post("/", async (req : Request,res : Response) => {
        })
  }
      
+})
+
+// find content based on Id
+
+
+contentRouter.get("/content/:id", async (req: Request, res: Response) => {
+    try {
+        const contentId = req.params.id;  // ✅ get from params
+        const contents = await ContentModel.findById(contentId);
+
+        if (!contents) {
+            return res.status(404).json({
+                message: "Content not found"
+            });
+        }
+
+        return res.status(200).json({ contents });
+
+    } catch (err) {
+        console.error("Error fetching content:", err);
+        return res.status(500).json({
+            message: "Internal Server Error"
+        });
+    }
+});
+
+// delete content based on id
+
+contentRouter.delete("/", async (req : Request,res : Response) => {
+    try {
+
+        const contentId = req.query.id;
+
+        const findcontent = await ContentModel.findById(contentId).where()
+
+       if(!findcontent) {
+        res.status(403).json({
+            message : "Trying to delete a doc you don’t own "
+        })
+       } 
+       
+       const content = await ContentModel.findByIdAndDelete( contentId ) 
+
+        res.status(200).json({
+            content,
+            message : "deleted successfully"
+
+        })
+
+    }catch(err) {
+        res.status(500).json({
+            message : "Internal Server Error"
+        })
+    }
+})
+
+// fetch all the contents
+
+contentRouter.get("/", async (req : Request,res : Response) => {
+    try {
+
+        const contents = await ContentModel.find();
+        console.log(contents);
+
+        res.status(200).json({
+            contents
+        })
+
+    }catch(err) {
+        res.status(500).json({
+            message : "Internal Server Error"
+        })
+    }
 })

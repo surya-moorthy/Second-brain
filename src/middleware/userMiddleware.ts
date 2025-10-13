@@ -17,13 +17,17 @@ export const userMiddleware = async (req : Request, res : Response,next : NextFu
     const token = headers.split(" ")[1];
     const decodeToken = jwt.verify(token,JWT_SECRET) as JwtPayload;
    
-     const verfiyUser = await UserModel.findById(decodeToken.id).select("-password");
+    const verfiyUser = await UserModel.findById(decodeToken.id).select("-password");
+
      if (!verfiyUser) {
         res.status(411).json({
             message : "user unauthorized"
         })
         return;
      }
+
+     req.userId = verfiyUser._id as string; 
+
     next();
 
 }

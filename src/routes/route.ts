@@ -5,4 +5,4 @@ import { userMiddleware } from "../middleware/userMiddleware";
 
 export const rootRouter : Router = Router();
 rootRouter.use("/user",authRouter);
-rootRouter.use("/content",userMiddleware,contentRouter);
+rootRouter.use("/contents",userMiddleware,contentRouter);
