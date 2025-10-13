@@ -4,7 +4,6 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"; 
 
 export const authRouter : Router = Router();
-
 const JWT_SECRET = "jwtsecret";
 
 authRouter.post("/signup",async (req : Request,res : Response)=> {
@@ -21,7 +20,7 @@ authRouter.post("/signup",async (req : Request,res : Response)=> {
 
     const verfiyUser = await UserModel.findOne({
         username : user.username
-    }) // check user already exist.
+    }) 
     
     if(verfiyUser) {
         res.status(411).json({
@@ -55,9 +54,8 @@ authRouter.post("/login",async (req : Request,res : Response)=> {
         res.status(403).json({
             message : "Error in Inputs" 
         })
+        return
     }
-
-    //   const passwordHash = bcrypt.hash(user.password,10);
 
     const verfiyUser = await UserModel.findOne({
          username : user.username
@@ -82,14 +80,15 @@ authRouter.post("/login",async (req : Request,res : Response)=> {
         res.status(403).json({
             message : "User unauthorized."
         })
+        return
     }
-
-    const token = jwt.sign(verfiyUser,JWT_SECRET);
+    const token = jwt.sign({id : verfiyUser._id, username : verfiyUser.username},JWT_SECRET,{expiresIn : 60000});
 
     res.status(200).json({
         token : token,
         message : "User registered Successfully" 
     })}catch(err) {
+        console.error(err);
        res.status(500).json({
         message : "Internal Server Error",
         error : err
