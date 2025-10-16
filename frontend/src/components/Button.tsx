@@ -1,10 +1,10 @@
-import type { ReactElement } from "react";
+import type { MouseEventHandler, ReactElement } from "react";
 
 interface ButtonProps {
     variant : "primary" | "secondary",
     text : string,
     icon? : ReactElement,
-    
+    onClick? : MouseEventHandler<HTMLDivElement>  
 }
 
 const variantClass  = {
@@ -16,7 +16,7 @@ const defaultStyles  = "flex justify-center items-center gap-3 px-4 py-2 rounded
 
 export function Button(props : ButtonProps) {
   return (
-    <div className={variantClass[props.variant] + " " + defaultStyles}>
+    <div className={variantClass[props.variant] + " " + defaultStyles} onClick={props.onClick}>
         {props.icon} {props.text}
     </div>
   )

@@ -1,12 +1,18 @@
-import type { ChangeEventHandler } from "react";
+import { forwardRef } from "react";
 
 interface InputProps {
-    placeholder : string;
-    onChange    : ChangeEventHandler<HTMLInputElement> | undefined
+  placeholder: string;
 }
 
-export const Input = ({placeholder, onChange} : InputProps) => {
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ placeholder }, ref) => {
     return (
-        <input type="text" placeholder={placeholder} className="px-4 py-2 border rounded m-2" onChange={onChange}/>
-    )
-}
+      <input
+        ref={ref}
+        type="text"
+        placeholder={placeholder}
+        className="px-4 py-2 border rounded m-2"
+      />
+    );
+  }
+);
