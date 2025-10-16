@@ -23,7 +23,6 @@ const TagSchema = new Schema({
 
 const LinkSchema = new Schema({
   hash: { type: String, required: true },
-  share: { type: Boolean, default: false },
   user: { type: Types.ObjectId, ref: "User", required: true }
 });
 

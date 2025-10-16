@@ -7,7 +7,7 @@ import { ModalProvider } from './context/ModalContext.tsx'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ModalProvider>
-      <App />
+    <App />
     </ModalProvider>
   </StrictMode>,
 )

@@ -48,12 +48,6 @@ brainRouter.get("/", async (req : Request,res : Response) => {
             return
         }
         console.log(linkResponse);
-
-        if(!linkResponse.get("share")) {
-            res.status(404).json({
-                message : "the link is not shareable"
-            })
-        }
         const userId = linkResponse.get("userId");
 
         const contents = await ContentModel.find({
