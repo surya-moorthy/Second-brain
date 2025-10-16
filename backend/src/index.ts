@@ -1,11 +1,11 @@
 import express, { Request, Response } from "express"
 // import { rootRouter } from "./routes/route";
-import bcrypt from "bcrypt";
-import {UserModel} from "./db/db"
+import cors from "cors";
 import { rootRouter } from "./routes/route";
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 app.use("/api/v1/",rootRouter);
 
 

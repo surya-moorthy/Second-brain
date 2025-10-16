@@ -6,5 +6,5 @@ import { brainRouter } from "./brain";
 
 export const rootRouter : Router = Router();
 rootRouter.use("/user",authRouter);
-rootRouter.use("/contents",userMiddleware,contentRouter);
+rootRouter.use("/content",userMiddleware,contentRouter);
 rootRouter.use("/brain",userMiddleware,brainRouter);

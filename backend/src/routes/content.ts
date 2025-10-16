@@ -7,7 +7,7 @@ export const contentRouter : Router = Router();
 
 // create a new content
 
-contentRouter.post("/content", async (req : Request,res : Response) => {
+contentRouter.post("/", async (req : Request,res : Response) => {
     try 
     { const content = req.body;
 
@@ -42,7 +42,7 @@ contentRouter.post("/content", async (req : Request,res : Response) => {
 // find content based on Id
 
 
-contentRouter.get("/content/:id", async (req: Request, res: Response) => {
+contentRouter.get("/:id", async (req: Request, res: Response) => {
     try {
         const contentId = req.params.id;  // ✅ get from params
         const contents = await ContentModel.findById(contentId);
