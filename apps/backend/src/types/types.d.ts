@@ -7,3 +7,8 @@ declare global {
     }
   }
 }
+
+export type Userprops = {
+  name : string,
+  password : string
+} 
