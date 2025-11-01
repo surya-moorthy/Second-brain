@@ -1,9 +1,6 @@
 {
-<<<<<<< HEAD
-  "name": "Second-brain",
-=======
+
   "name": "second-brain",
->>>>>>> 2e07e49 (feat(create-turbo): apply official-starter transform)
   "private": true,
   "scripts": {
     "build": "turbo run build",
@@ -14,11 +11,8 @@
   },
   "devDependencies": {
     "prettier": "^3.6.2",
-<<<<<<< HEAD
-    "turbo": "^2.5.8",
-=======
+
     "turbo": "^2.6.0",
->>>>>>> 2e07e49 (feat(create-turbo): apply official-starter transform)
     "typescript": "5.9.2"
   },
   "engines": {
