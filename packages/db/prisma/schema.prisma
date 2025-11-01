@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,6 +12,7 @@ model User {
   username String
   password String
   content  Content[]
+  link     Link[]
 }
 
 model Content {
@@ -22,6 +22,16 @@ model Content {
   link      String
   userId    String
   createdAt DateTime? @default(now())
-  updatedAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
   user      User      @relation(fields: [userId], references: [id])
+}
+
+model Link {
+  id        String   @id @default(cuid())
+  hash      String   @unique
+  share     Boolean
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

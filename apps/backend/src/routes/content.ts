@@ -1,4 +1,4 @@
-import { ContentController } from "@/controllers/contentController/controllers";
+import { ContentController } from "../controllers/contentController/controllers";
 import { Router } from "express";
 
 export const contentRouter : Router = Router();

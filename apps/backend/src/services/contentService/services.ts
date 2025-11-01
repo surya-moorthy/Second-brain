@@ -1,4 +1,4 @@
-import { ContentType } from "@/types/types";
+import { ContentType } from "../../types/types";
 import { prisma } from "@repo/db";
 
 
@@ -12,6 +12,10 @@ export class ContentService {
             type: data.type,
             userId: data.userId as string,
         },
+        omit : {
+          userId : true,
+          updatedAt : true   
+        }
         });
 
         return content;

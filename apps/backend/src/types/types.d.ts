@@ -9,12 +9,11 @@ declare global {
 }
 
 export type LoginUserType = {
-   UserType,
-   token : string
-}
-export type UserType = {
+   user : {
     id : string,
     username : string
+   },
+   token : string
 }
 
 

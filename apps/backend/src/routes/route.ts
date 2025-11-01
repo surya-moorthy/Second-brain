@@ -1,10 +1,11 @@
 import { Router } from "express";
 import { authRouter } from "./signup";
-// import { contentRouter } from "./content";
-// import { userMiddleware } from "../middleware/userMiddleware";
-// import { brainRouter } from "./brain";
+import { authMiddleware } from "../middleware/userMiddleware";
+import { contentRouter } from "./content";
+import { brainRouter } from "./brain";
 
 export const rootRouter : Router = Router();
+
 rootRouter.use("/user",authRouter);
-// rootRouter.use("/content",userMiddleware,contentRouter);
-// rootRouter.use("/brain",userMiddleware,brainRouter);
+rootRouter.use("/content",authMiddleware,contentRouter);
+rootRouter.use("/brain",brainRouter);
