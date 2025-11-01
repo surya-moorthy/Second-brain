@@ -1,7 +1,5 @@
 // import { Request, Response, Router } from "express";
 // import { generateRandomString } from "../utils/utils";
-// import { ContentModel, LinkModel } from "../db/db";
-
 
 // export const brainRouter : Router = Router();
 

@@ -17,3 +17,10 @@ export type UserType = {
     username : string
 }
 
+
+export type ContentType = {
+  type : string,
+  link : string,
+  title : string,
+  userId? : string
+}
