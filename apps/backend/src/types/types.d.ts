@@ -8,7 +8,12 @@ declare global {
   }
 }
 
-export type Userprops = {
-  name : string,
-  password : string
-} 
+export type LoginUserType = {
+   UserType,
+   token : string
+}
+export type UserType = {
+    id : string,
+    username : string
+}
+
