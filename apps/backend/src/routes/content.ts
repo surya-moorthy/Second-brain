@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
 import { ContentModel } from "../db/db";
-import mongoose from "mongoose";
+
 
 
 export const contentRouter : Router = Router();
